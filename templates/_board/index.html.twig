@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .main {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            flex-basis: max-content;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        .headline {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('board', null, 'board') }}
+{% endblock %}
+{% block body %}
+    <main class="main">
+        {% for list in lists %}
+            <div data-id="{{ list.id }}" class="column object">
+                <div class="headline">
+                    <h2>{{ list.title }}</h2>
+                    <button class="list__delete btn-delete list__delete" data-url="{{ path('lists_delete', {list: list.id}) }}">
+                        X
+                    </button>
+                </div>
+                {% for task in list.tasks %}
+                    <div data-id="{{ task.id }}" class="headline task__headline object">
+                        <h3>{{ task.title }} ({{ task.storyPoints }} SP)</h3>
+                        <button class="btn-delete task__delete" data-url="{{ path('tasks_delete', {task: task.id}) }}">
+                            X
+                        </button>
+                    </div>
+                {% endfor %}
+                <form class="task__create" action="{{ path('tasks_create', {list: list.id}) }}" method="post">
+                    <label>
+                        <input type="text" name="title" placeholder="Task title">
+                    </label>
+                    <label>
+                        <input type="number" name="storyPoints" placeholder="Story Points">
+                    </label>
+                    <button type="submit">Create task</button>
+                </form>
+            </div>
+        {% endfor %}
+        <div class="column">
+            <form id="list__create" action="{{ path('lists_create') }}" method="post">
+                <label>
+                    <input type="text" name="title" placeholder="List title">
+                </label>
+                <input type="hidden" name="position" value="{{ lists | length + 1 }}">
+                <button type="submit">Create list</button>
+            </form>
+        </div>
+    </main>
+{% endblock %}

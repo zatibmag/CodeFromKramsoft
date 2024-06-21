@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+  <div class="container vh-100 d-flex flex-column justify-content-center mx-auto" style="max-width: 350px">
+    {{ form_start(form) }}
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('main', null, 'css') }}
+    {% endblock %}
+    {% if error %}
+      <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+      <div class="mb-3 text-center">
+        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+      </div>
+    {% endif %}
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+    <div class="d-flex flex-column gap-3">
+      {{ form_row(form.username) }}
+      {{ form_row(form.password) }}
+      {{ form_widget(form.submit) }}
+    </div>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

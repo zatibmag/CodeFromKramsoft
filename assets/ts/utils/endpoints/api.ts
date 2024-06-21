@@ -1,0 +1,20 @@
+export const enum APIEndpoint {
+    getPermission             = '/api/get-permission',
+    sprints                   = '/api/sprint/list',
+    perfectChartLine          = '/api/sprint/{sprintId}/chart-line/perfect',
+    currentChartLine          = '/api/sprint/{sprintId}/chart-line/current',
+    sprintData                = '/api/sprint/{sprintId}/data',
+    sprintRemove              = '/api/sprint/{sprintId}/remove',
+    sprintNew                 = '/api/sprint/new',
+    sprintUpdate              = '/api/sprint/{sprintId}/update',
+    addChartPoint             = '/api/sprint/{sprintId}/chart-point/add',
+    settingsUsers             = '/api/settings/users',
+    settingsChangeRole        = '/api/settings/change-role/{userId}',
+    settingsAvailableRoles    = '/api/settings/available-roles',
+    excludeDays               = '/api/sprint/{sprintId}/exclude-days',
+    excludedDaysRemove        = '/api/sprint/{sprintId}/exclude-days/remove',
+    chartLines                = '/api/sprint/{sprintId}/chart-lines',
+    addChartLine              = '/api/sprint/{sprintId}/chart-line/new',
+    removeChartLine           = 'api/sprint/chart-line/{id}/remove',
+    capacityDaysAdd           = '/api/sprint/{sprintId}/capacity/{chartLineId}/add'
+}
